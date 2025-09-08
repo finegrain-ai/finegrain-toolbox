@@ -6,8 +6,6 @@ import torch
 from numpy import array, float32
 from PIL import Image
 from torch import Tensor
-from torch import device as Device
-from torch import dtype as DType
 
 if torch.cuda.is_available():
     default_device = torch.device("cuda:0")
@@ -26,7 +24,11 @@ class no_grad(torch.no_grad):
         return object.__new__(cls)
 
 
-def image_to_tensor(image: Image.Image, device: Device | str | None = None, dtype: DType | None = None) -> Tensor:
+def image_to_tensor(
+    image: Image.Image,
+    device: torch.device | str | None = None,
+    dtype: torch.dtype | None = None,
+) -> Tensor:
     """Convert a PIL Image to a Tensor.
 
     Args:
