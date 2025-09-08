@@ -17,7 +17,7 @@ dependencies = [
     "peft>=0.17.1",
     "safetensors>=0.6.2",
     "sentencepiece>=0.2.1",
-    "protobuf>=6.32.0",
+    "protobuf>=5.29.5",  # allow < 6 because of tritonclient
 ]
 
 [build-system]
