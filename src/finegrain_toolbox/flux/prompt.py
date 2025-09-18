@@ -39,13 +39,11 @@ class Prompt:
         device: torch.device | None = None,
         dtype: torch.dtype | None = None,
     ) -> Self:
-        return self.__class__(
-            t5_embeds=self.t5_embeds.to(device=device, dtype=dtype),
-            clip_embeds=self.clip_embeds.to(device=device, dtype=dtype),
-            text_ids=self.text_ids.to(device=device, dtype=dtype),
-            text=self.text,
-            batch_size=self.batch_size,
-        )
+        params = dc.asdict(self)
+        params["t5_embeds"] = self.t5_embeds.to(device=device, dtype=dtype)
+        params["clip_embeds"] = self.clip_embeds.to(device=device, dtype=dtype)
+        params["text_ids"] = self.text_ids.to(device=device, dtype=dtype)
+        return self.__class__(**params)
 
 
 def prompt_with_embeds(

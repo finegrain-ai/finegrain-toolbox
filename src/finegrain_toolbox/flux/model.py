@@ -60,17 +60,14 @@ class Model(PushToHubMixin):
         device: torch.device | None = None,
         dtype: torch.dtype | None = None,
     ) -> Self:
-        return self.__class__(
-            device=device or self.device,
-            dtype=dtype or self.dtype,
-            scheduler=self.scheduler,
-            autoencoder=self.autoencoder.to(device=device, dtype=dtype),
-            transformer=self.transformer.to(device=device, dtype=dtype),
-            vae_scaling_factor=self.vae_scaling_factor,
-            vae_shift_factor=self.vae_shift_factor,
-            downscale_factor=self.downscale_factor,
-            latent_channels=self.latent_channels,
-        )
+        params = dc.asdict(self)
+        if device is not None:
+            params["device"] = device
+        if dtype is not None:
+            params["dtype"] = dtype
+        params["scheduler"] = self.scheduler.to(device=device, dtype=dtype)
+        params["autoencoder"] = self.autoencoder.to(device=device, dtype=dtype)
+        return self.__class__(**params)
 
     @classmethod
     def from_pretrained(
