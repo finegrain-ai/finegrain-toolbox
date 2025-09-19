@@ -76,6 +76,7 @@ class Model(PushToHubMixin):
         device: torch.device = default_device,
         dtype: torch.dtype = default_dtype,
         use_safetensors: bool | None = None,
+        ae_subfolder: str = "vae",
     ) -> Self:
         scheduler = FlowMatchEulerDiscreteScheduler.from_pretrained(
             path_or_id,
@@ -84,7 +85,7 @@ class Model(PushToHubMixin):
 
         autoencoder = AutoencoderKL.from_pretrained(
             path_or_id,
-            subfolder="vae",
+            subfolder=ae_subfolder,
             use_safetensors=use_safetensors,
             torch_dtype=dtype,
         ).to(device)
