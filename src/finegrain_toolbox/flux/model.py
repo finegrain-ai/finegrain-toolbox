@@ -65,7 +65,7 @@ class Model(PushToHubMixin):
             params["device"] = device
         if dtype is not None:
             params["dtype"] = dtype
-        params["scheduler"] = self.scheduler.to(device=device, dtype=dtype)
+        params["transformer"] = self.transformer.to(device=device, dtype=dtype)
         params["autoencoder"] = self.autoencoder.to(device=device, dtype=dtype)
         return self.__class__(**params)
 
