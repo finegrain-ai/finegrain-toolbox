@@ -2,7 +2,6 @@ import dataclasses as dc
 import pathlib
 
 import torch
-from diffusers.utils.hub_utils import PushToHubMixin
 from transformers import CLIPTextModel, CLIPTokenizer, T5EncoderModel, T5TokenizerFast
 
 from ..torch import default_device, default_dtype
@@ -66,7 +65,7 @@ def prompt_with_embeds(
 
 
 @dc.dataclass(kw_only=True)
-class TextEncoder(PushToHubMixin):
+class TextEncoder:
     device: torch.device
     dtype: torch.dtype
     clip_tokenizer: CLIPTokenizer

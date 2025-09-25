@@ -1,11 +1,13 @@
 import dataclasses as dc
+import os
 import pathlib
+from typing import Any
 
 import numpy as np
 import torch
 from diffusers import AutoencoderKL, FlowMatchEulerDiscreteScheduler, FluxTransformer2DModel
-from diffusers.utils.hub_utils import PushToHubMixin
 
+from ..models import SafePushToHubMixin
 from ..torch import default_device, default_dtype
 from ..types import Self
 
@@ -23,7 +25,7 @@ def get_mu(scheduler: FlowMatchEulerDiscreteScheduler, image_seq_len: int) -> fl
 
 
 @dc.dataclass(kw_only=True)
-class Model(PushToHubMixin):
+class Model(SafePushToHubMixin):
     device: torch.device
     dtype: torch.dtype
     scheduler: FlowMatchEulerDiscreteScheduler
@@ -109,4 +111,25 @@ class Model(PushToHubMixin):
             transformer=transformer,
             vae_scaling_factor=vae_scaling_factor,
             vae_shift_factor=vae_shift_factor,
+        )
+
+    def save_pretrained(
+        self,
+        save_directory: str | os.PathLike[str],
+        *,
+        safe_serialization: bool = False,
+        ae_subfolder: str = "vae",
+        **kwargs: Any,
+    ):
+        self.transformer.save_pretrained(
+            os.path.join(save_directory, "transformer"),
+            safe_serialization=safe_serialization,
+        )
+        self.autoencoder.save_pretrained(
+            os.path.join(save_directory, ae_subfolder),
+            safe_serialization=safe_serialization,
+        )
+        self.scheduler.save_pretrained(
+            os.path.join(save_directory, "scheduler"),
+            safe_serialization=safe_serialization,
         )
