@@ -135,6 +135,7 @@ class BaseModelOutput(ModelOutput):
     def __getitem__(self, k: str | int) -> torch.Tensor: ...
 
 class BaseModelOutputWithPooling(ModelOutput):
+    last_hidden_state: torch.Tensor
     pooler_output: torch.Tensor
 
 class CLIPTextModel(CLIPPreTrainedModel):
