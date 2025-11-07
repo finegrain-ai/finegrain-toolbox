@@ -96,13 +96,13 @@ class TextEncoder:
         clip_text_encoder = CLIPTextModel.from_pretrained(
             path_or_id,
             subfolder="text_encoder",
-            torch_dtype=dtype,
+            dtype=dtype,
             device_map={"": device},
         )
         t5_text_encoder = T5EncoderModel.from_pretrained(
             path_or_id,
             subfolder="text_encoder_2",
-            torch_dtype=dtype,
+            dtype=dtype,
             device_map={"": device},
         )
 
