@@ -7,6 +7,7 @@ import numpy as np
 import torch
 from diffusers import AutoencoderKL, FlowMatchEulerDiscreteScheduler, FluxTransformer2DModel
 
+from ..dc import DcMixin
 from ..models import SafePushToHubMixin
 from ..torch import default_device, default_dtype
 from ..types import Self
@@ -25,7 +26,7 @@ def get_mu(scheduler: FlowMatchEulerDiscreteScheduler, image_seq_len: int) -> fl
 
 
 @dc.dataclass(kw_only=True)
-class Model(SafePushToHubMixin):
+class Model(SafePushToHubMixin, DcMixin):
     device: torch.device
     dtype: torch.dtype
     scheduler: FlowMatchEulerDiscreteScheduler
@@ -62,7 +63,7 @@ class Model(SafePushToHubMixin):
         device: torch.device | None = None,
         dtype: torch.dtype | None = None,
     ) -> Self:
-        params = dc.asdict(self)
+        params = self.shallow_asdict()
         if device is not None:
             params["device"] = device
         if dtype is not None:

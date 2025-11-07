@@ -4,6 +4,7 @@ import pathlib
 import torch
 from transformers import CLIPTextModel, CLIPTokenizer, T5EncoderModel, T5TokenizerFast
 
+from ..dc import DcMixin
 from ..torch import default_device, default_dtype
 from ..types import Self
 
@@ -16,7 +17,7 @@ class Tokenized:
 
 
 @dc.dataclass(kw_only=True)
-class Prompt:
+class Prompt(DcMixin):
     t5_embeds: torch.Tensor  # (batch_size, seq_len, 4096)
     clip_embeds: torch.Tensor  # (batch_size, 768)
     text_ids: torch.Tensor  # shape (seq_len, 3)
@@ -38,7 +39,7 @@ class Prompt:
         device: torch.device | None = None,
         dtype: torch.dtype | None = None,
     ) -> Self:
-        params = dc.asdict(self)
+        params = self.shallow_asdict()
         params["t5_embeds"] = self.t5_embeds.to(device=device, dtype=dtype)
         params["clip_embeds"] = self.clip_embeds.to(device=device, dtype=dtype)
         params["text_ids"] = self.text_ids.to(device=device, dtype=dtype)
