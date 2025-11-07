@@ -21,7 +21,7 @@ class PreTrainedModel:
     def from_pretrained(
         cls,
         pretrained_model_name_or_path: str | pathlib.Path,
-        torch_dtype: torch.dtype,
+        dtype: torch.dtype,
         subfolder: str = "",
         device_map: dict[str, torch.device] | None = None,
     ) -> Self: ...
