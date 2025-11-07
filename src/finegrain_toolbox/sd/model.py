@@ -6,10 +6,10 @@ from typing import Any
 import torch
 from diffusers import AutoencoderKL, DPMSolverMultistepScheduler, UNet2DConditionModel
 
-from finegrain_toolbox.dc import DcMixin
-from finegrain_toolbox.models import SafePushToHubMixin
-from finegrain_toolbox.torch import default_device, default_dtype
-from finegrain_toolbox.types import Self
+from ..dc import DcMixin
+from ..models import SafePushToHubMixin
+from ..torch import default_device, default_dtype
+from ..types import Self
 
 
 @dc.dataclass(kw_only=True)
@@ -62,7 +62,7 @@ class WithAutoencoderKL:
 
 
 @dc.dataclass(kw_only=True)
-class BaseModel(SafePushToHubMixin, WithAutoencoderKL, WithDPMSolver, DcMixin):
+class Model(SafePushToHubMixin, WithAutoencoderKL, WithDPMSolver, DcMixin):
     device: torch.device
     dtype: torch.dtype
     unet: UNet2DConditionModel
