@@ -40,8 +40,8 @@ def image_to_tensor(
         The converted tensor.
 
     Note:
-        If the image is in mode `RGB` the tensor will have shape `[3, H, W]`,
-        otherwise `[1, H, W]` for mode `L` (grayscale) or `[4, H, W]` for mode `RGBA`.
+        If the image is in mode `RGB` the tensor will have shape `[1, 3, H, W]`,
+        otherwise `[1, 1, H, W]` for mode `L` (grayscale) or `[1, 4, H, W]` for mode `RGBA`.
 
         Values are normalized to the range `[0, 1]`.
     """
