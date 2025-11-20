@@ -11,6 +11,7 @@ class ModelMixin:
         pretrained_model_name_or_path: str | os.PathLike[str],
         torch_dtype: torch.dtype | None = None,
         subfolder: str | None = None,
+        revision: str | None = None,
         device_map: dict[str, torch.device] | None = None,
         use_safetensors: bool | None = None,
     ) -> Self: ...

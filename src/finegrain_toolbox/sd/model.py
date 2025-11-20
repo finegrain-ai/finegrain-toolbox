@@ -98,6 +98,7 @@ class Model(SafePushToHubMixin, WithAutoencoderKL, WithDPMSolver, DcMixin):
     def from_pretrained(
         cls,
         path_or_id: str | pathlib.Path,
+        revision: str | None = None,
         device: torch.device = default_device,
         dtype: torch.dtype = default_dtype,
         use_safetensors: bool | None = None,
@@ -110,12 +111,14 @@ class Model(SafePushToHubMixin, WithAutoencoderKL, WithDPMSolver, DcMixin):
         autoencoder = AutoencoderKL.from_pretrained(
             path_or_id,
             subfolder="vae",
+            revision=revision,
             use_safetensors=use_safetensors,
             torch_dtype=dtype,
         ).to(device)
         unet = UNet2DConditionModel.from_pretrained(
             path_or_id,
             subfolder="unet",
+            revision=revision,
             torch_dtype=dtype,
             use_safetensors=use_safetensors,
         ).to(device)
