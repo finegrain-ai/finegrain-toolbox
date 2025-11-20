@@ -76,6 +76,7 @@ class Model(SafePushToHubMixin, DcMixin):
     def from_pretrained(
         cls,
         path_or_id: str | pathlib.Path,
+        *,
         revision: str | None = None,
         device: torch.device = default_device,
         dtype: torch.dtype = default_dtype,
