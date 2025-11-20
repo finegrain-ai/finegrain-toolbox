@@ -80,28 +80,33 @@ class TextEncoder:
     def from_pretrained(
         cls,
         path_or_id: str | pathlib.Path,
+        revision: str | None = None,
         device: torch.device = default_device,
         dtype: torch.dtype = default_dtype,
     ) -> Self:
         clip_tokenizer = CLIPTokenizer.from_pretrained(
             path_or_id,
             subfolder="tokenizer",
+            revision=revision,
         )
 
         t5_tokenizer = T5TokenizerFast.from_pretrained(
             path_or_id,
             subfolder="tokenizer_2",
+            revision=revision,
         )
 
         clip_text_encoder = CLIPTextModel.from_pretrained(
             path_or_id,
             subfolder="text_encoder",
+            revision=revision,
             dtype=dtype,
             device_map={"": device},
         )
         t5_text_encoder = T5EncoderModel.from_pretrained(
             path_or_id,
             subfolder="text_encoder_2",
+            revision=revision,
             dtype=dtype,
             device_map={"": device},
         )

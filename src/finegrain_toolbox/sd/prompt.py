@@ -51,14 +51,20 @@ class TextEncoder:
     def from_pretrained(
         cls,
         path_or_id: str | pathlib.Path,
+        revision: str | None = None,
         device: torch.device = default_device,
         dtype: torch.dtype = default_dtype,
     ) -> Self:
-        tokenizer = CLIPTokenizer.from_pretrained(path_or_id, subfolder="tokenizer")
+        tokenizer = CLIPTokenizer.from_pretrained(
+            path_or_id,
+            subfolder="tokenizer",
+            revision=revision,
+        )
 
         text_encoder = CLIPTextModel.from_pretrained(
             path_or_id,
             subfolder="text_encoder",
+            revision=revision,
             dtype=dtype,
             device_map={"": device},
         )

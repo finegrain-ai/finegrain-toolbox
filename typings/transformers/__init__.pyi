@@ -23,6 +23,7 @@ class PreTrainedModel:
         pretrained_model_name_or_path: str | pathlib.Path,
         dtype: torch.dtype,
         subfolder: str = "",
+        revision: str | None = None,
         device_map: dict[str, torch.device] | None = None,
     ) -> Self: ...
     def to(self, device: torch.device) -> Self: ...
@@ -44,6 +45,7 @@ class Processor:
     def from_pretrained(
         cls,
         pretrained_model_name_or_path: str | pathlib.Path,
+        revision: str | None = None,
     ) -> Self: ...
     def __call__(
         self,
@@ -77,6 +79,7 @@ class PreTrainedTokenizerBase:
         cls,
         pretrained_model_name_or_path: str | pathlib.Path,
         subfolder: str = "",
+        revision: str | None = None,
     ) -> Self: ...
     def __call__(
         self,
