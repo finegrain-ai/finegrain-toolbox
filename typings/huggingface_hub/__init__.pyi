@@ -10,4 +10,5 @@ def upload_folder(
     commit_message: str | None = None,
     token: str | None = None,
     create_pr: bool | None = None,
+    delete_patterns: list[str] | None = None,
 ) -> Any: ...
