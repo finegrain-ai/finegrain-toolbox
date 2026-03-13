@@ -24,7 +24,7 @@ class AutoencoderKL(ModelMixin, ConfigMixin):
         z: torch.Tensor,
         return_dict: bool,
         generator: torch.Generator | None = None,
-    ) -> torch.Tensor: ...
+    ) -> tuple[torch.Tensor]: ...
 
 class FluxTransformer2DModel(ModelMixin):
     def __init__(
