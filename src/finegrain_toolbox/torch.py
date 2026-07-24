@@ -3,7 +3,7 @@
 from typing import Any
 
 import torch
-from numpy import array, float32
+from numpy import array, float32, ndarray
 from PIL import Image
 from torch import Tensor
 
@@ -22,6 +22,14 @@ def manual_seed(seed: int) -> None:
 class no_grad(torch.no_grad):
     def __new__(cls, orig_func: Any | None = None) -> "no_grad":  # type: ignore
         return object.__new__(cls)
+
+
+def from_numpy(arr: ndarray[Any, Any]) -> Tensor:
+    return torch.from_numpy(arr)  # pyright: ignore[reportUnknownMemberType]
+
+
+def to_numpy(tensor: Tensor, dtype: torch.dtype) -> ndarray[Any, Any]:
+    return tensor.to(dtype).numpy()  # pyright: ignore[reportUnknownMemberType, reportUnknownVariableType]
 
 
 def image_to_tensor(
