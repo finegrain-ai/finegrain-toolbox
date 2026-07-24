@@ -12,6 +12,7 @@ dependencies = [
     "diffusers>=0.35.1",
     "transformers>=4.56.0",
     "accelerate>=1.10.1",
+    "huggingface-hub>=1.24.0",
     "numpy>=1.26.4",
     "pillow>=11.3.0",
     "peft>=0.17.1",
